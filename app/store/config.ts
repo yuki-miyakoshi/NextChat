@@ -1,3 +1,5 @@
+const RESET_EPOCH = 20260122; // ← リセットしたい時にこの数値を上げて再デプロイ
+
 import { LLMModel } from "../client/api";
 import { DalleQuality, DalleStyle, ModelSize } from "../typing";
 import { getClientConfig } from "../config/client";
@@ -74,7 +76,7 @@ export const DEFAULT_CONFIG = {
     sendMemory: true,
     historyMessageCount: 4,
     compressMessageLengthThreshold: 1000,
-    compressModel: "gpt-5-mini",
+    compressModel: "gpt-5-nano",
     compressProviderName: "OpenAI",
     enableInjectSystemPrompts: true,
     template: config?.template ?? DEFAULT_INPUT_TEMPLATE,
@@ -194,7 +196,7 @@ export const useAppConfig = createPersistStore(
     allModels() {},
   }),
   {
-    name: StoreKey.Config,
+    name: `${StoreKey.Config}:epoch:${RESET_EPOCH}`,
     version: 4.1,
 
     merge(persistedState, currentState) {
