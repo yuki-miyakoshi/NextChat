@@ -1,3 +1,5 @@
+const RESET_EPOCH = 20260122_1;
+
 import OpenAPIClientAxios from "openapi-client-axios";
 import { StoreKey } from "../constant";
 import { nanoid } from "nanoid";
@@ -228,7 +230,7 @@ export const usePluginStore = createPersistStore(
     },
   }),
   {
-    name: StoreKey.Plugin,
+    name: `${StoreKey.Plugin}:epoch:${RESET_EPOCH}`,
     version: 1,
     onRehydrateStorage(state) {
       // Skip store rehydration on server side
