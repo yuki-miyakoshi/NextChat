@@ -2,7 +2,69 @@
   {
     "id": "dalle3",
     "name": "Dalle3",
-    "schema": "https://raw.githubusercontent.com/ChatGPTNextWeb/NextChat-Awesome-Plugins/refs/heads/main/plugins/dalle/openapi.json"
+    "schema": {
+                "openapi": "3.1.0",
+                "info": { "title": "Dalle3", "version": "1.0.0" },
+                "servers": [{ "url": "https://api.openai.com" }],
+                "paths": {
+                  "/v1/images/generations": {
+                    "post": {
+                      "operationId": "Dalle3",
+                      "x-openai-isConsequential": false,
+                      "summary": "openai's dall-e image generator.",
+                      "requestBody": {
+                        "required": true,
+                        "content": {
+                          "application/json": {
+                            "schema": {
+                              "type": "object",
+                              "required": ["model", "n", "prompt", "size"],
+                              "properties": {
+                                "model": {
+                                  "type": "string",
+                                  "description": "model name, required and value is `dall-e-3`.",
+                                  "enum": ["dall-e-3"]
+                                },
+                                "n": {
+                                  "type": "integer",
+                                  "description": "value is `1`",
+                                  "enum": [1]
+                                },
+                                "prompt": {
+                                  "type": "string",
+                                  "description": "A text description of the desired image(s). input must be a english prompt."
+                                },
+                                "size": {
+                                  "type": "string",
+                                  "description": "images size",
+                                  "enum": ["1024x1024", "1024x1792", "1792x1024"]
+                                },
+                                "quality": {
+                                  "type": "string",
+                                  "description": "images quality",
+                                  "enum": ["standard", "hd"],
+                                  "default": "hd"
+                                },
+                                "style": {
+                                  "type": "string",
+                                  "description": "images style",
+                                  "enum": ["vivid", "natural"],
+                                  "default": "vivid"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "responses": {
+                        "200": {
+                          "description": "OK"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
   },
   {
     "id": "arxivsearch",
