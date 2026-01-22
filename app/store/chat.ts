@@ -1,3 +1,4 @@
+import { epochKey } from "../constant/persist";
 import {
   getMessageTextContent,
   isDalle3,
@@ -859,7 +860,7 @@ export const useChatStore = createPersistStore(
     return methods;
   },
   {
-    name: StoreKey.Chat,
+    name: epochKey(StoreKey.Chat),
     version: 3.3,
     migrate(persistedState, version) {
       const state = persistedState as any;

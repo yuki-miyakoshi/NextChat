@@ -1,5 +1,4 @@
-const RESET_EPOCH = 20260122; // ← リセットしたい時にこの数値を上げて再デプロイ
-
+import { epochKey } from "../constant/persist";
 import { LLMModel } from "../client/api";
 import { DalleQuality, DalleStyle, ModelSize } from "../typing";
 import { getClientConfig } from "../config/client";
@@ -196,7 +195,7 @@ export const useAppConfig = createPersistStore(
     allModels() {},
   }),
   {
-    name: `${StoreKey.Config}:epoch:${RESET_EPOCH}`,
+    name: epochKey(StoreKey.Config),
     version: 4.1,
 
     merge(persistedState, currentState) {
