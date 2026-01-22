@@ -43,7 +43,7 @@ export const createEmptyMask = () =>
     lang: getLang(),
     builtin: false,
     createdAt: Date.now(),
-    plugin: ["duckduckgolite"],
+    plugin: ["arxivsearch","arxivsearch","duckduckgolite"],
   }) as Mask;
 
 export const useMaskStore = createPersistStore(
