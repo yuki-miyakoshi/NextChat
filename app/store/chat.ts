@@ -105,7 +105,7 @@ function createEmptySession(): ChatSession {
   return {
     id: nanoid(),
     topic: DEFAULT_TOPIC,
-    memoryPrompt: "",
+    memoryPrompt: "絵を描くときはdalle3を利用してください",
     messages: [],
     stat: {
       tokenCount: 0,
