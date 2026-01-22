@@ -121,29 +121,31 @@ export class ChatGPTApi implements LLMApi {
     return cloudflareAIGatewayUrl([baseUrl, path].join("/"));
   }
 
-  async extractMessage(res: any) {
-    if (res.error) {
-      return "```\n" + JSON.stringify(res, null, 4) + "\n```";
-    }
-    // dalle3 model return url, using url create image message
-    if (res.data) {
-      let url = res.data?.at(0)?.url ?? "";
-      const b64_json = res.data?.at(0)?.b64_json ?? "";
-      if (!url && b64_json) {
-        // uploadImage
-        url = await uploadImage(base64Image2Blob(b64_json, "image/png"));
-      }
-      return [
-        {
-          type: "image_url",
-          image_url: {
-            url,
-          },
-        },
-      ];
-    }
-    return res.choices?.at(0)?.message?.content ?? res;
+  async extractMessage(res: any): Promise<string | MultimodalContent[]> {
+  if (res?.error) {
+    return "```\n" + JSON.stringify(res, null, 4) + "\n```";
   }
+
+  // 画像生成レスポンス（images API）
+  const data = res?.data;
+  if (Array.isArray(data) && data.length > 0) {
+    let url = data?.[0]?.url ?? "";
+    const b64_json = data?.[0]?.b64_json ?? "";
+    if (!url && b64_json) {
+      url = await uploadImage(base64Image2Blob(b64_json, "image/png"));
+    }
+    if (url) {
+      return [{ type: "image_url", image_url: { url } }];
+    }
+  }
+
+  // chat.completions通常
+  const content = res?.choices?.at(0)?.message?.content;
+  if (typeof content === "string") return content;
+  if (Array.isArray(content)) return content;
+
+  return res;
+}
 
   async speech(options: SpeechOptions): Promise<ArrayBuffer> {
     const requestPayload = {
