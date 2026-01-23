@@ -1,4 +1,4 @@
-import { epochKey } from "../constant/persist";
+import { epochKey } from "./persist";
 import OpenAPIClientAxios from "openapi-client-axios";
 import { StoreKey } from "../constant";
 import { nanoid } from "nanoid";

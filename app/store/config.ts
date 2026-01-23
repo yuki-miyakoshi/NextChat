@@ -1,4 +1,4 @@
-import { epochKey } from "../constant/persist";
+import { epochKey } from "./persist";
 import { LLMModel } from "../client/api";
 import { DalleQuality, DalleStyle, ModelSize } from "../typing";
 import { getClientConfig } from "../config/client";
