@@ -6,7 +6,7 @@
   },
   "servers": [
     {
-      "url": "https://searxng.miyakoshiyuki.com/",
+      "url": "https://searxng.miyakoshiyuki.jp/",
       "description": "SearXNG instance URL."
     }
   ],
